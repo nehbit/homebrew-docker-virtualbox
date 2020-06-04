@@ -1,7 +1,7 @@
 require 'formula'
 
 class DockerVirtualbox < Formula
-  url "https://github.com/sergeycherepanov/homebrew-docker-virtualbox.git", :using => :git
+  url "https://github.com/nehbit/homebrew-docker-virtualbox.git", :using => :git
   version "0.0.3"
   revision 7
 
