@@ -11,7 +11,7 @@ brew cask install virtualbox
 ### Install the docker-virtualbox via Homebrew
 
 ```bash
-brew tap sergeycherepanov/docker-virtualbox
+brew tap nehbit/docker-virtualbox
 brew install docker-virtualbox
 ```
 
@@ -23,7 +23,7 @@ Ensure the NFS exports file exists
 sudo touch /etc/exports
 ```
 
-Allow the staff group to configure NFS shares and ip balancer without password prompt  
+Allow the staff group to configure NFS shares and ip balancer without password prompt
 ```bash
 sudo tee /etc/sudoers.d/docker-machine-nfs  <<SUDOERS
 %staff ALL=(ALL) NOPASSWD: /sbin/nfsd
@@ -47,7 +47,7 @@ brew link --force --overwrite docker-virtualbox
 Otherwise configure the PATH variable
 ```bash
 # For the bash
-echo "export PATH=\"$(brew --prefix docker-virtualbox)/bin:\$PATH\"" >> ~/.bashrc
+echo "export PATH=\"$(brew --prefix docker-virtualbox)/bin:\$PATH\"" >> ~/.bash_profile
 # For the zsh
 echo "export PATH=\"$(brew --prefix docker-virtualbox)/bin:\$PATH\"" >> ~/.zshrc
 ```
@@ -62,7 +62,7 @@ exec $SHELL
 > It should creates and configure the fm
 > The live log will be available in `/tmp/docker-virtualbox.log`
 ```bash
-brew services start docker-virtualbox 
+brew services start docker-virtualbox
 ```
 
 ### Verify installation
@@ -82,7 +82,7 @@ docker-machine ssh docker
 
 To stop the service just run
 ```bash
-brew services stop docker-virtualbox 
+brew services stop docker-virtualbox
 ```
 
 To setup environment for 3rd party tools (`ctop` as example)

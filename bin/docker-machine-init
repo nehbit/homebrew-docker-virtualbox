@@ -63,9 +63,9 @@ fi
 
 if [[ -z ${DOCKER_MACHINE_MEMORY_COUNT} ]]; then
     if [[ "Darwin" == "$(uname)" ]]; then
-        DOCKER_MACHINE_MEMORY_COUNT=$(sysctl -n hw.memsize | awk '{ mem=($1 * 0.25 / 1024 / 1024 ); print int(mem > 4096 ? 4096 : mem) }')
+        DOCKER_MACHINE_MEMORY_COUNT=$(sysctl -n hw.memsize | awk '{ mem=($1 * 0.25 / 1024 / 1024 ); print int(mem > 16384 ? 16384 : mem) }')
     else
-        DOCKER_MACHINE_MEMORY_COUNT=$(free -b | grep Mem | awk '{ mem=($2 * 0.25 / 1024 / 1024 ); print int(mem > 4096 ? 4096 : mem) }')
+        DOCKER_MACHINE_MEMORY_COUNT=$(free -b | grep Mem | awk '{ mem=($2 * 0.25 / 1024 / 1024 ); print int(mem > 16384 ? 16384 : mem) }')
     fi
 fi
 
@@ -113,6 +113,7 @@ echo $! > /tmp/docker-virtualbox-gobetween.pid
 echo "export DOCKER_CLI_BIN_PATH=\"$(brew --prefix docker-cli)/bin/docker\"" > /tmp/docker-virtualbox.env
 echo "export DOCKER_COMPOSE_BIN_PATH=\"$(brew --prefix docker-compose)/bin/docker-compose\"" >> /tmp/docker-virtualbox.env
 echo "export DOCKER_MACHINE_IP=\"$(${DOCKER_MACHINE_BIN} ip ${DOCKER_MACHINE_MACHINE_NAME})\"" >> /tmp/docker-virtualbox.env
+echo "export DOCKER_BUILDKIT=1" >> /tmp/docker-virtualbox.env
 ${DOCKER_MACHINE_BIN} env ${DOCKER_MACHINE_MACHINE_NAME} >> /tmp/docker-virtualbox.env
 ${TERMINAL_NOTIFIER_BIN} -title "Docker Virtualbox" -message "Virtual machine '${DOCKER_MACHINE_MACHINE_NAME}' ready for work"
 
