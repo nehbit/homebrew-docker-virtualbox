@@ -10,6 +10,8 @@ LOGDIR="/tmp";
 exec > ${LOGDIR}/docker-virtualbox.log
 exec 2>&1
 
+source ~/.bash_profile
+
 START_TIME=$(date +%s)
 
 if [[ "Darwin" == "$(uname)" ]]; then
@@ -63,9 +65,9 @@ fi
 
 if [[ -z ${DOCKER_MACHINE_MEMORY_COUNT} ]]; then
     if [[ "Darwin" == "$(uname)" ]]; then
-        DOCKER_MACHINE_MEMORY_COUNT=$(sysctl -n hw.memsize | awk '{ mem=($1 * 0.25 / 1024 / 1024 ); print int(mem > 16384 ? 16384 : mem) }')
+        DOCKER_MACHINE_MEMORY_COUNT=$(sysctl -n hw.memsize | awk '{ mem=($1 * 0.25 / 1024 / 1024 ); print int(mem > 4096 ? 4096 : mem) }')
     else
-        DOCKER_MACHINE_MEMORY_COUNT=$(free -b | grep Mem | awk '{ mem=($2 * 0.25 / 1024 / 1024 ); print int(mem > 16384 ? 16384 : mem) }')
+        DOCKER_MACHINE_MEMORY_COUNT=$(free -b | grep Mem | awk '{ mem=($2 * 0.25 / 1024 / 1024 ); print int(mem > 4096 ? 4096 : mem) }')
     fi
 fi
 
